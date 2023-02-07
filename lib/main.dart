@@ -1,7 +1,19 @@
+import 'dart:io';
+
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setWindowSizeDesktop();
   runApp(const MyApp());
+}
+
+setWindowSizeDesktop() async {
+  if (Platform.isWindows) {
+    await DesktopWindow.setWindowSize(
+        Size(392.72727272727275, 803.6363636363636));
+  }
 }
 
 class MyApp extends StatelessWidget {
