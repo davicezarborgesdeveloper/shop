@@ -4,9 +4,9 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/pages/products_overview_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setWindowSizeDesktop();
+  await setWindowSizeDesktop();
   runApp(const MyApp());
 }
 
@@ -25,8 +25,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.purple,
+          primary: Colors.purple,
+          secondary: Colors.deepOrange,
+        ),
+        fontFamily: 'Lato',
       ),
       home: ProductsOverviewPage(),
     );

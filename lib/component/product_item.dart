@@ -10,15 +10,12 @@ class ProductItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
-        child: Image.network(
-          product.imageUrl,
-          fit: BoxFit.cover,
-        ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
           leading: IconButton(
             icon: Icon(
               Icons.favorite,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             onPressed: () {},
           ),
@@ -27,9 +24,16 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             onPressed: () {},
           ),
+        ),
+        child: Image.network(
+          product.imageUrl,
+          fit: BoxFit.cover,
         ),
       ),
     );
