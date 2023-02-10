@@ -6,7 +6,8 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Product product = ModalRoute.of(context)!.settings.arguments as Product;
+    final Product product =
+        ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
         title: Text(product.title),
