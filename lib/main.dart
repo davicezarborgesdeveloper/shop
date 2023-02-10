@@ -22,30 +22,26 @@ setWindowSizeDesktop() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ProductList(),
       child: MaterialApp(
         title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primarySwatch: Colors.purple,
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.purple,
-              primary: Colors.purple,
-              secondary: Colors.deepOrange,
-            ),
-            fontFamily: 'Lato',
-            appBarTheme: AppBarTheme(centerTitle: true)),
-        initialRoute: '/',
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.purple,
+            secondary: Colors.deepOrange,
+          ),
+          fontFamily: 'Lato',
+        ),
+        home: const ProductsOverviewPage(),
         routes: {
-          AppRoutes.productsOverview: (_) => ProductsOverviewPage(),
-          AppRoutes.productDetail: (_) => ProductDetailPage()
+          AppRoutes.productDetail: (ctx) => const ProductDetailPage(),
         },
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
