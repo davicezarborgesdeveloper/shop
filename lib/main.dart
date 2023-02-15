@@ -9,6 +9,7 @@ import 'package:shop/models/product_list.dart';
 import 'package:shop/pages/cart_page.dart';
 import 'package:shop/pages/orders_page.dart';
 import 'package:shop/pages/product_detail_page.dart';
+import 'package:shop/pages/product_form_page.dart';
 import 'package:shop/pages/products_overview_page.dart';
 import 'package:shop/pages/products_page.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -20,9 +21,11 @@ void main() async {
 }
 
 setWindowSizeDesktop() async {
+  double width = 392.72727272727275;
+  double height = 803.6363636363636;
   if (Platform.isWindows) {
-    await DesktopWindow.setWindowSize(
-        const Size(392.72727272727275, 803.6363636363636));
+    await DesktopWindow.setWindowSize(Size(width, height));
+    // await DesktopWindow.setWindowSize(Size(960, 600));
   }
 }
 
@@ -46,6 +49,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          primaryColor: Colors.purple,
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: Colors.purple,
             secondary: Colors.deepOrange,
@@ -59,6 +63,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.cart: (ctx) => const CartPage(),
           AppRoutes.orders: (ctx) => const OrdersPage(),
           AppRoutes.products: (ctx) => const ProductsPage(),
+          AppRoutes.productForm: (ctx) => const ProductFormPage(),
         },
         debugShowCheckedModeBanner: false,
       ),
