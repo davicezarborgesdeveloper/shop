@@ -14,7 +14,7 @@ class OrdersPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Meus Pedidos'),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: ListView.builder(
           itemCount: orders.itemsCount,
           itemBuilder: (ctx, i) => OrderWidget(order: orders.items[i])),

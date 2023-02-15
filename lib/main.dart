@@ -10,6 +10,7 @@ import 'package:shop/pages/cart_page.dart';
 import 'package:shop/pages/orders_page.dart';
 import 'package:shop/pages/product_detail_page.dart';
 import 'package:shop/pages/products_overview_page.dart';
+import 'package:shop/pages/products_page.dart';
 import 'package:shop/utils/app_routes.dart';
 
 void main() async {
@@ -21,7 +22,7 @@ void main() async {
 setWindowSizeDesktop() async {
   if (Platform.isWindows) {
     await DesktopWindow.setWindowSize(
-        Size(392.72727272727275, 803.6363636363636));
+        const Size(392.72727272727275, 803.6363636363636));
   }
 }
 
@@ -53,10 +54,11 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: AppRoutes.home,
         routes: {
+          AppRoutes.home: (ctx) => const ProductsOverviewPage(),
           AppRoutes.productDetail: (ctx) => const ProductDetailPage(),
           AppRoutes.cart: (ctx) => const CartPage(),
-          AppRoutes.home: (ctx) => const ProductsOverviewPage(),
           AppRoutes.orders: (ctx) => const OrdersPage(),
+          AppRoutes.products: (ctx) => const ProductsPage(),
         },
         debugShowCheckedModeBanner: false,
       ),
