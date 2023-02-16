@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
@@ -20,5 +21,10 @@ class Product with ChangeNotifier {
   void toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
+  }
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, description: $description, price: $price, imageUrl: $imageUrl, isFavorite: $isFavorite)';
   }
 }

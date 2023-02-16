@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:shop/models/order.dart';
 import 'package:intl/intl.dart';
+import 'package:shop/models/order.dart';
 
 class OrderWidget extends StatefulWidget {
   final Order order;
+
   const OrderWidget({
     Key? key,
     required this.order,
@@ -17,6 +16,7 @@ class OrderWidget extends StatefulWidget {
 
 class _OrderWidgetState extends State<OrderWidget> {
   bool _expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,8 +24,9 @@ class _OrderWidgetState extends State<OrderWidget> {
         children: [
           ListTile(
             title: Text('R\$ ${widget.order.total.toStringAsFixed(2)}'),
-            subtitle:
-                Text(DateFormat('dd/MM/yyyy hh:mm').format(widget.order.date)),
+            subtitle: Text(
+              DateFormat('dd/MM/yyyy hh:mm').format(widget.order.date),
+            ),
             trailing: IconButton(
               icon: const Icon(Icons.expand_more),
               onPressed: () {
@@ -41,31 +42,33 @@ class _OrderWidgetState extends State<OrderWidget> {
                 horizontal: 15,
                 vertical: 4,
               ),
-              height: (widget.order.products.length * 26.0) + 10,
+              height: (widget.order.products.length * 24) + 10,
               child: ListView(
-                children: widget.order.products.map((product) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        product.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                children: widget.order.products.map(
+                  (product) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          product.name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${product.quantity}x R\$ ${product.price}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
+                        Text(
+                          '${product.quantity}x R\$ ${product.price}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                      ],
+                    );
+                  },
+                ).toList(),
               ),
-            )
+            ),
         ],
       ),
     );

@@ -21,11 +21,10 @@ void main() async {
 }
 
 setWindowSizeDesktop() async {
-  double width = 392.72727272727275;
-  double height = 803.6363636363636;
+  print(Platform.operatingSystem);
   if (Platform.isWindows) {
-    await DesktopWindow.setWindowSize(Size(width, height));
-    // await DesktopWindow.setWindowSize(Size(960, 600));
+    await DesktopWindow.setWindowSize(
+        Size(392.72727272727275, 803.6363636363636));
   }
 }
 
@@ -49,14 +48,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primaryColor: Colors.purple,
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: Colors.purple,
             secondary: Colors.deepOrange,
           ),
           fontFamily: 'Lato',
         ),
-        initialRoute: AppRoutes.home,
+        // home: const ProductsOverviewPage(),
         routes: {
           AppRoutes.home: (ctx) => const ProductsOverviewPage(),
           AppRoutes.productDetail: (ctx) => const ProductDetailPage(),

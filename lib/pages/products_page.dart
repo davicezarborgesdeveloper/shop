@@ -26,11 +26,14 @@ class ProductsPage extends StatelessWidget {
       drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
+        child: ListView.builder(
           itemCount: products.itemsCount,
-          itemBuilder: (ctx, i) => ProductItem(product: products.items[i]),
+          itemBuilder: (ctx, i) => Column(
+            children: [
+              ProductItem(products.items[i]),
+              const Divider(),
+            ],
+          ),
         ),
       ),
     );
