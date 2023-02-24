@@ -7,9 +7,10 @@ import 'package:shop/data/dummy_data.dart';
 import 'package:shop/models/product.dart';
 
 class ProductList with ChangeNotifier {
-  final _baseUrl = "https://shop-cod3r-be85a-default-rtdb.firebaseio.com";
+  final _url =
+      "https://shop-cod3r-be85a-default-rtdb.firebaseio.com/products.json";
 
-  final List<Product> _items = dummyProducts;
+  final List<Product> _items = [];
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -19,27 +20,23 @@ class ProductList with ChangeNotifier {
     return _items.length;
   }
 
-  Future<void> addProduct(Product product) {
-    final future = http.post(
-      Uri.parse('$_baseUrl/products.json'),
-      body: jsonEncode(
-        {
-          "name": product.name,
-          "description": product.description,
-          "price": product.price,
-          "imageUrl": product.imageUrl,
-          "isFavorite": product.isFavorite,
-        },
-      ),
-    );
-    return future.then<void>((response) {
-      final id = jsonDecode(response.body)['name'];
-      _items.add(product.copyWith(id: id));
-      notifyListeners();
-    }).catchError((error) {
-      print(error.toString());
-      throw error;
+  Future<void> loadProducts() async {
+    final response = await http.get(Uri.parse(_url));
+    if (response.body == 'null') return;
+    Map<String, dynamic> data = jsonDecode(response.body);
+    data.forEach((productId, productData) {
+      _items.add(
+        Product(
+          id: productId,
+          name: productData['name'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: productData['isFavorite'],
+        ),
+      );
     });
+    notifyListeners();
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -57,6 +54,25 @@ class ProductList with ChangeNotifier {
     } else {
       return addProduct(product);
     }
+  }
+
+  Future<void> addProduct(Product product) async {
+    final response = await http.post(
+      Uri.parse(_url),
+      body: jsonEncode(
+        {
+          "name": product.name,
+          "description": product.description,
+          "price": product.price,
+          "imageUrl": product.imageUrl,
+          "isFavorite": product.isFavorite,
+        },
+      ),
+    );
+
+    final id = jsonDecode(response.body)['name'];
+    _items.add(product.copyWith(id: id));
+    notifyListeners();
   }
 
   Future<void> updateProduct(Product product) {
