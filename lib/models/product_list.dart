@@ -36,6 +36,9 @@ class ProductList with ChangeNotifier {
       final id = jsonDecode(response.body)['name'];
       _items.add(product.copyWith(id: id));
       notifyListeners();
+    }).catchError((error) {
+      print(error.toString());
+      throw error;
     });
   }
 
