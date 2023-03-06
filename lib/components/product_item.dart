@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/exceptions/http_exceptions.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/models/product_list.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -61,9 +62,12 @@ class ProductItem extends StatelessWidget {
                         context,
                         listen: false,
                       ).removeProduct(product);
-                    } on Exception catch (error) {
+                    } on HttpExceptions catch (error) {
                       msg.showSnackBar(
-                          SnackBar(content: Text(error.toString())));
+                        SnackBar(
+                          content: Text(error.toString()),
+                        ),
+                      );
                     }
                   }
                 });

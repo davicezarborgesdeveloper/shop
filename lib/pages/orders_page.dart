@@ -16,13 +16,13 @@ class OrdersPage extends StatelessWidget {
       drawer: const AppDrawer(),
       body: FutureBuilder(
         future: Provider.of<OrderList>(context, listen: false).loadOrders(),
-        builder: (ctx, snapshot) {
+        builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.error != null) {
-            return Center(child: Text('Ocorreu um Erro'));
+            return const Center(
+              child: Text('Ocorreu um erro!'),
+            );
           } else {
             return Consumer<OrderList>(
               builder: (ctx, orders, child) => ListView.builder(
@@ -31,16 +31,8 @@ class OrdersPage extends StatelessWidget {
               ),
             );
           }
-        },
+        }),
       ),
-      // body: _isLoading
-      // ? Center(
-      //     child: CircularProgressIndicator(),
-      //   )
-      //     : ListView.builder(
-      //         itemCount: orders.itemsCount,
-      //         itemBuilder: (ctx, i) => OrderWidget(order: orders.items[i]),
-      //       ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/components/app_drawer.dart';
-import 'package:shop/components/badge.dart';
+import 'package:shop/components/badge_cart.dart';
 import 'package:shop/components/product_grid.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/product_list.dart';
@@ -26,9 +26,10 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductList>(context, listen: false)
-        .loadProducts()
-        .then((value) {
+    Provider.of<ProductList>(
+      context,
+      listen: false,
+    ).loadProducts().then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -70,7 +71,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
               },
               icon: const Icon(Icons.shopping_cart),
             ),
-            builder: (ctx, cart, child) => BadgeWidget(
+            builder: (ctx, cart, child) => BadgeCart(
               value: cart.itemsCount.toString(),
               child: child!,
             ),
@@ -78,7 +79,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
         ],
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ProductGrid(_showFavoriteOnly),
       drawer: const AppDrawer(),
     );

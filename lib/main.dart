@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/models/auth.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/order_list.dart';
 import 'package:shop/models/product_list.dart';
+import 'package:shop/pages/auth_or_home_page.dart';
 import 'package:shop/pages/auth_page.dart';
 import 'package:shop/pages/cart_page.dart';
 import 'package:shop/pages/orders_page.dart';
@@ -37,13 +39,29 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, ProductList>(
           create: (_) => ProductList(),
+          update: (ctx, auth, previous) {
+            return ProductList(
+              auth.token ?? '',
+              auth.userId ?? '',
+              previous?.items ?? [],
+            );
+          },
+        ),
+        ChangeNotifierProxyProvider<Auth, OrderList>(
+          create: (_) => OrderList(),
+          update: (ctx, auth, previous) {
+            return OrderList(
+              auth.token ?? '',
+              previous?.items ?? [],
+            );
+          },
         ),
         ChangeNotifierProvider(
           create: (_) => Cart(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => OrderList(),
         ),
       ],
       child: MaterialApp(
@@ -57,13 +75,12 @@ class MyApp extends StatelessWidget {
         ),
         // home: const ProductsOverviewPage(),
         routes: {
-          AppRoutes.home: (ctx) => const ProductsOverviewPage(),
+          AppRoutes.authOrHome: (ctx) => const AuthOrHomePage(),
           AppRoutes.productDetail: (ctx) => const ProductDetailPage(),
           AppRoutes.cart: (ctx) => const CartPage(),
           AppRoutes.orders: (ctx) => const OrdersPage(),
           AppRoutes.products: (ctx) => const ProductsPage(),
           AppRoutes.productForm: (ctx) => const ProductFormPage(),
-          AppRoutes.auth: (ctx) => const AuthPage(),
         },
         debugShowCheckedModeBanner: false,
       ),

@@ -64,9 +64,9 @@ class CartPage extends StatelessWidget {
 
 class CartButton extends StatefulWidget {
   const CartButton({
-    super.key,
+    Key? key,
     required this.cart,
-  });
+  }) : super(key: key);
 
   final Cart cart;
 
@@ -76,21 +76,24 @@ class CartButton extends StatefulWidget {
 
 class _CartButtonState extends State<CartButton> {
   bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? CircularProgressIndicator()
+        ? const CircularProgressIndicator()
         : TextButton(
             onPressed: widget.cart.itemsCount == 0
                 ? null
                 : () async {
                     setState(() => _isLoading = true);
+
                     await Provider.of<OrderList>(
                       context,
                       listen: false,
                     ).addOrder(widget.cart);
-                    setState(() => _isLoading = false);
+
                     widget.cart.clear();
+                    setState(() => _isLoading = false);
                   },
             child: const Text('COMPRAR'),
           );
